@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gps"
+    android:orientation="vertical"
+    android:gravity="center|bottom"
+    tools:context=".Activitys.GPSinactivo">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/activar"
+            android:layout_height="wrap_content"
+            android:text="@string/activar"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+
+            android:background="@drawable/blanco_redondo"
+            android:textColor="@color/colorPrimary"/>
+</RelativeLayout>
