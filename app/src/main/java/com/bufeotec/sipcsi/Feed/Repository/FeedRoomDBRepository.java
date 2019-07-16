@@ -50,7 +50,7 @@ public class FeedRoomDBRepository {
     private static class DeleteAllFeedAsyncTask extends AsyncTask<Void, Void, Void> {
         private FeedDao feedDao;
 
-        private DeleteAllMovieAsyncTask(FeedDao feedDao) {
+        private DeleteAllFeedAsyncTask(FeedDao feedDao) {
             this.feedDao = feedDao;
         }
 

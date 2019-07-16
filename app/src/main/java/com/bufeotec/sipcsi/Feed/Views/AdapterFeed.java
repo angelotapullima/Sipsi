@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
 
     UniversalImageLoader universalImageLoader;
     String foto ;
+    ModelFeed modelFeed;
     StringRequest stringRequest;
     ImageButton imgbt_like_g;
     TextView nlike_g;
@@ -52,38 +54,55 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
     int posicionlocalc;
     ModelFeed current;
     Context ctx;
+    private  OnItemClickListener listener;
     Preferences preferencesUser;
 
 
     class PostViewHolder extends RecyclerView.ViewHolder {
         private ImageView img_fotoQueja;
         ImageButton like;
+        LinearLayout layoutMas;
+        ImageView btnAccion;
         RelativeLayout relfoto;
-        private ProgressBar prog_fotoPublicacion;
         private TextView txt_nombreUsuario, txt_fechaQueja,  txt_descripcionQueja,txt_destinoQueja,nlike;
 
         private PostViewHolder(View itemView) {
             super(itemView);
             img_fotoQueja=  itemView.findViewById(R.id.img_fotoQuejaItem);
             relfoto=  itemView.findViewById(R.id.relfoto);
+            btnAccion=  itemView.findViewById(R.id.btnAccion);
+            layoutMas=  itemView.findViewById(R.id.layoutMas);
             txt_destinoQueja=  itemView.findViewById(R.id.txt_destinoQueja);
-            prog_fotoPublicacion = itemView.findViewById(R.id.prog_fotoPublicacion);
             like=  itemView.findViewById(R.id.like);
             nlike=  itemView.findViewById(R.id.nlike);
             txt_nombreUsuario=  itemView.findViewById(R.id.txt_nombreUsuario);
             txt_fechaQueja=  itemView.findViewById(R.id.txt_fechaQueja);
             txt_descripcionQueja=  itemView.findViewById(R.id.txt_descripcionQueja);
         }
+
+        public void bid(final ModelFeed modelFeed,final OnItemClickListener listener){
+            btnAccion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(modelFeed, getAdapterPosition());
+                }
+            });
+
+
+        }
     }
 
     private final LayoutInflater mInflater;
+
+
     private List<ModelFeed> mUsers; // Cached copy of users
 
 
-    AdapterFeed(Context context) {
+    AdapterFeed(Context context ,OnItemClickListener listener) {
         mInflater = LayoutInflater.from(context);
         universalImageLoader = new UniversalImageLoader(context);
-        preferencesUser = new Preferences(context);}
+        preferencesUser = new Preferences(context);
+        this.listener = listener;}
 
     @NonNull
     @Override
@@ -101,6 +120,9 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
             holder.body.setText(current.getFoto());*/
 
 
+            if (!current.getId_usuario().equals(preferencesUser.getIdUsuarioPref())){
+                holder.layoutMas.setVisibility(View.GONE);
+            }
             holder.setIsRecyclable(false);
             holder.like.setId(position);
             foto = current.getFoto();
@@ -151,6 +173,8 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
                     }
                 }
             });
+
+            holder.bid(current,listener);
         } else {
             // Covers the case of data not being ready yet.
            // holder.userNameView.setText("No Word");
@@ -290,4 +314,8 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
         VolleySingleton.getIntanciaVolley(ctx).addToRequestQueue(stringRequest);
     }
 
+
+    public interface  OnItemClickListener{
+        void onItemClick(ModelFeed modelFeed, int position);
+    }
 }

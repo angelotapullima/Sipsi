@@ -21,8 +21,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -33,6 +35,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,11 +44,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bufeotec.sipcsi.Feed.Models.ModelFeed;
 import com.bufeotec.sipcsi.Feed.Repository.FeedWebServiceRepository;
 import com.bufeotec.sipcsi.Models.Areas;
@@ -54,6 +64,7 @@ import com.bufeotec.sipcsi.R;
 import com.bufeotec.sipcsi.Feed.ViewModels.FeedListViewModel;
 import com.bufeotec.sipcsi.Util.Preferences;
 import com.bufeotec.sipcsi.WebServices.DataConnection;
+import com.bufeotec.sipcsi.WebServices.VolleySingleton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -65,12 +76,17 @@ import net.gotev.uploadservice.UploadNotificationConfig;
 import net.gotev.uploadservice.UploadService;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
@@ -108,6 +124,11 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
     ImageButton bt_photo;
     Preferences pref;
     boolean valorFoto;
+
+    String IdPueblo;
+    View bottomEli;
+    LinearLayout tap_de_accion,LayoutEliminar;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
 
     private int REQUEST_CAMERA = 0, SELET_GALERRY = 9;
@@ -172,7 +193,37 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
         setAdapter();
        //progressDialog= ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
        cargarvista();
+
+
+        bottomEli = view.findViewById(R.id.bottomEli);
+        tap_de_accion = view.findViewById(R.id.tap_de_accion);
+        LayoutEliminar = view.findViewById(R.id.bottomEliminar);
+
+        LayoutEliminar.setOnClickListener(this);
         btn_publicar.setOnClickListener(this);
+
+        mBottomSheetBehavior=BottomSheetBehavior.from(bottomEli);
+        mBottomSheetBehavior.setPeekHeight(0);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    tap_de_accion.setVisibility(View.GONE);
+                }
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    tap_de_accion.setVisibility(View.VISIBLE);
+                }
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    tap_de_accion.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
+
 
         return  view;
     }
@@ -207,7 +258,16 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
 
     AdapterFeed adapter = null;
     private void setAdapter(){
-        adapter = new AdapterFeed(getActivity());
+        adapter = new AdapterFeed(getActivity(), new AdapterFeed.OnItemClickListener() {
+            @Override
+            public void onItemClick(ModelFeed modelFeed, int position) {
+
+                IdPueblo=modelFeed.getId();
+                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -235,7 +295,54 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
             //Intent i  = new Intent(context, Publicar.class);
             //startActivity(i);
             dialogpublicar();
+        }if (v.equals(LayoutEliminar)){
+
+            EliminarPublicacionWeb(IdPueblo);
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
         }
+    }
+
+    StringRequest stringRequest;
+    private void EliminarPublicacionWeb(final String idpueblo) {
+        String url ="https://"+IP+"/index.php?c=Pueblo&a=eliminar&key_mobile=123456asdfgh";
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("eliminar Publicación: ",""+response);
+
+                if (response.toString().equals("1")){
+                    Toast.makeText(context, "Publicacion eliminada", Toast.LENGTH_SHORT).show();
+                    retroViewModel.deleteAllFeed();
+                    onRefresh();
+                }
+                }
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(context,"error ",Toast.LENGTH_SHORT).show();
+                Log.i("RESPUESTA: ",""+error.toString());
+
+            }
+        })  {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //String imagen=convertirImgString(bitmap);
+
+
+                Map<String,String> parametros=new HashMap<>();
+                parametros.put("id",idpueblo);
+
+                return parametros;
+
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(stringRequest);
     }
 
     private void dialogpublicar() {
@@ -393,9 +500,6 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
             Toast.makeText(context, exc.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
     protected UploadNotificationConfig getNotificationConfig(final String uploadId, @StringRes int title) {
         UploadNotificationConfig config = new UploadNotificationConfig();
