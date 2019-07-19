@@ -917,7 +917,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             String lat = String.valueOf(location.getLatitude());
             String lon = String.valueOf(location.getLongitude());
             if(location!=null){
-                sendInfo(lat,lon);
+                //Toast.makeText(context, "location" + lat + " " + lon, Toast.LENGTH_SHORT).show();
+                //sendInfo(lat,lon);
 
                 //Toast.makeText(MainActivity.this, Utils.getLocationText(location),Toast.LENGTH_SHORT).show();
             }
@@ -943,7 +944,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    private void sendInfo(final String lat, final String lng) {
+    /*private void sendInfo(final String lat, final String lng) {
 
 
         String url ="https://"+IP+"/index.php?c=Vehiculo&a=actualizar_ubicacion_vehiculo&key_mobile=123456asdfgh";
@@ -954,7 +955,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                 } else {
                     //Toast.makeText(ChoferDatosDeCarrera.this,"No se ha registrado ",Toast.LENGTH_SHORT).show();
-                    Log.d("LServices: ",""+response);
+                    Log.d("LServices 2: ",""+response);
                 }
             }
 
@@ -982,7 +983,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(context).addToRequestQueue(stringRequest);
-    }
+    }*/
 
 
 

@@ -36,6 +36,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -244,7 +245,7 @@ public class LocationUpdatesService extends Service {
 
     /**
      * Makes a request for location updates. Note that in this sample we merely log the
-     * {@link SecurityException}.
+     * @link SecurityException}.
      */
     public void requestLocationUpdates() {
         Log.i(TAG, "Requesting location updates");
@@ -261,7 +262,7 @@ public class LocationUpdatesService extends Service {
 
     /**
      * Removes location updates. Note that in this sample we merely log the
-     * {@link SecurityException}.
+     * @link SecurityException}.
      */
     public void removeLocationUpdates() {
         Log.i(TAG, "Removing location updates");
@@ -298,8 +299,8 @@ public class LocationUpdatesService extends Service {
                 //.addAction(R.drawable.logo, getString(R.string.launch_activity),activityPendingIntent)
                 .addAction(R.drawable.posible, getString(R.string.remove_location_updates),
                         servicePendingIntent)
-                .setContentText(text)
-                .setContentTitle(Utils.getLocationTitle(this))
+                //.setContentText(text)
+                .setContentTitle("Compartiendo Ubicación")//Utils.getLocationTitle(this))
                 .setOngoing(true)
                 .setSound(null)
                 .setSmallIcon(R.drawable.posible)
@@ -341,6 +342,7 @@ public class LocationUpdatesService extends Service {
         String lon = String.valueOf(location.getLongitude());
         if(location!=null){
             sendInfo(lat,lon);
+            Toast.makeText(this, "location" + lat + " " + lon, Toast.LENGTH_SHORT).show();
         }
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);
@@ -405,7 +407,7 @@ public class LocationUpdatesService extends Service {
 
                 } else {
                     //Toast.makeText(ChoferDatosDeCarrera.this,"No se ha registrado ",Toast.LENGTH_SHORT).show();
-                    Log.d("LServices: ",""+response);
+                    Log.d("LServices: 11 ",""+response);
                 }
             }
 

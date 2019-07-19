@@ -268,7 +268,7 @@ public class MonitoreoBasurero extends AppCompatActivity implements OnMapReadyCa
                 }
             }
         }else{
-            Log.e(TAG, " no sirves para nada mrd" );
+            Log.e(TAG, " no llega nada del servidor" );
         }
 
 
@@ -317,14 +317,17 @@ public class MonitoreoBasurero extends AppCompatActivity implements OnMapReadyCa
             public void run() {
                 if (!run) {
                     Log.i("funciones", "Basurero");
-                    dc = new DataConnection(this, "listarRutasBasureros", pref.getDistritoIdPref(), false);
+                    vehiculos= new Vehiculos();
+                    vehiculos.setId_vehiculo(idVehiculo);
+                    vehiculos.setTok(pref.getNombrePref());
+                    dc = new DataConnection(this, "ubicacionVehiculo", vehiculos, false);
                     new MonitoreoBasurero.GetBasureros().execute();
 
                 }else{
                     handler.removeCallbacks(this);
                 }
                 //CargarPuntosAMapa();//llamamos nuestro metodo
-                handler.postDelayed(this,7000);//se ejecutara cada 10 segundos
+                handler.postDelayed(this,10000);//se ejecutara cada 10 segundos
             }
         },5000);//empezara a ejecutarse después de 5 milisegundos
     }
