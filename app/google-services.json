@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "983622290385-c101h8bujobi5mm0m8rp27ku2rjkcj67.apps.googleusercontent.com",
+          "client_id": "983622290385-mh41cbhmo72d6drhihv0nunlal4pd37v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bufeotec.sipcsi",
-            "certificate_hash": "c3bd576bd278127d090e1469d22d835196800580"
+            "certificate_hash": "2a2d1061b5b99f5aab461a6297c7444cb6e6ec22"
           }
         },
         {
@@ -28,6 +28,9 @@
         }
       ],
       "api_key": [
+        {
+          "current_key": "AIzaSyAi3yA1bJxeHDNyddBTzAJVfaYmrUdFhEA"
+        },
         {
           "current_key": "AIzaSyALtxaoYV2fnpYtBQ58LIbRoLznPGl356A"
         }

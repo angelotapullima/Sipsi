@@ -12,6 +12,7 @@ public class Usuario {
     private String usuario_apellido;
     private String usuario_dni;
     private String rol_id;
+    private String rol_nombre;
     private String vehiculo;
 
 
@@ -43,6 +44,14 @@ public class Usuario {
 
     public void setDistrito_nombre(String distrito_nombre) {
         this.distrito_nombre = distrito_nombre;
+    }
+
+    public String getRol_nombre() {
+        return rol_nombre;
+    }
+
+    public void setRol_nombre(String rol_nombre) {
+        this.rol_nombre = rol_nombre;
     }
 
     public String getVehiculo() {

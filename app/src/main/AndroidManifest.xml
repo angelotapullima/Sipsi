@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activitys.CambiarContrasena"></activity>
+        <activity android:name=".Activitys.PartePDF"></activity>
+        <activity android:name=".Activitys.CambiarContrasena" />
         <activity android:name=".Activitys.EditarPerfil" />
         <activity android:name=".Activitys.MonitoreoBasurero" />
         <activity android:name=".Activitys.ListAlertas">

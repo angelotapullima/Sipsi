@@ -46,6 +46,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -53,6 +54,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bufeotec.sipcsi.Activitys.CambiarContrasena;
 import com.bufeotec.sipcsi.Activitys.DetalleAlarmas;
 import com.bufeotec.sipcsi.Activitys.GPSinactivo;
 import com.bufeotec.sipcsi.BuildConfig;
@@ -139,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,10 +163,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         FirebaseApp.initializeApp(this);
 
 
+
         if(!sharedPreferences.getString("idusuario","").equals("") ){
 
             usuarioid = sharedPreferences.getString("idusuario","");
-            rol_id = sharedPreferences.getString("rol","");
+            rol_id = sharedPreferences.getString("rol_id","");
             token= sharedPreferences.getString ("token","");
             usuario= sharedPreferences.getString ("nickname","");
             clave= sharedPreferences.getString ("clave","");
@@ -171,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             vehiculoid= sharedPreferences.getString ("vehiculo","");
         }else{
             usuarioid = getIntent().getExtras().getString("idusuario");
-            rol_id = getIntent().getExtras().getString("rol");
+            rol_id = getIntent().getExtras().getString("rol_id");
             token=getIntent().getExtras().getString("token");
             usuario=getIntent().getExtras().getString("nickname");
             clave=getIntent().getExtras().getString("clave");
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        toolbar.setElevation(0);
+        //toolbar.setElevation(0);
 
 
         //inicializamos el Float Action Button
@@ -307,7 +312,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         GPSActivo();
         despuesde10();
     }
-
 
 
 

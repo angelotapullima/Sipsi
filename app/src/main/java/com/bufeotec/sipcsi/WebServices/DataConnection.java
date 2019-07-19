@@ -357,7 +357,8 @@ public class DataConnection extends AppCompatActivity {
                             JSONObject jsonNode = resultJSON.getJSONObject(i);
 
                             obj.setUsuario_id(jsonNode.optString("idusuario"));
-                            obj.setRol_id(jsonNode.optString("rol"));
+                            obj.setRol_id(jsonNode.optString("rol_id"));
+                            obj.setRol_nombre(jsonNode.optString("rol"));
                             obj.setToken(jsonNode.optString("token"));
                             obj.setUsuario_contrasenha(jsonNode.optString("clave"));
                             obj.setUsuario_nickname(jsonNode.optString("nickname"));
@@ -370,7 +371,7 @@ public class DataConnection extends AppCompatActivity {
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("idusuario",obj.getUsuario_id());
-                            editor.putString("rol",obj.getRol_id());
+                            editor.putString("rol_id",obj.getRol_id());
                             editor.putString("token",obj.getToken());
                             editor.putString("clave",obj.getUsuario_contrasenha());
                             editor.putString("nickname",obj.getUsuario_nickname());
@@ -378,6 +379,7 @@ public class DataConnection extends AppCompatActivity {
                             editor.putString("distrito",obj.getDistrito_nombre());
                             editor.putString("nombre",obj.getUsuario_nombre());
                             editor.putString("vehiculo",obj.getVehiculo());
+                            editor.putString("rol",obj.getRol_nombre());
                             editor.apply();
                             /*obj.setToken(jsonNode.optString("token"));
                             obj.setChofer(jsonNode.optString("chofer"));*/

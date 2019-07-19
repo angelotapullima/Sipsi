@@ -2,6 +2,7 @@ package com.bufeotec.sipcsi.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.bufeotec.sipcsi.Activitys.PartePDF;
 import com.bufeotec.sipcsi.Adapter.AdapterListParteAccidente;
 import com.bufeotec.sipcsi.Models.Accidentes;
 import com.bufeotec.sipcsi.R;
@@ -206,6 +208,8 @@ public class ListParteAccidenteFragment extends Fragment implements View.OnClick
             public void onItemClick(Accidentes alertas, int position) {
 
 
+                Intent i = new Intent(context, PartePDF.class);
+                startActivity(i);
                 String estado = "alertas";
 
 
