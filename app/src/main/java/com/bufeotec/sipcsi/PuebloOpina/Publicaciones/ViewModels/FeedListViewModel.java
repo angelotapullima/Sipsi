@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.Feed.ViewModels;
+package com.bufeotec.sipcsi.PuebloOpina.Publicaciones.ViewModels;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -8,9 +8,9 @@ import android.arch.lifecycle.LiveData;
 import com.andr.mvvm.RetrofitRoom.Repository.FeedRoomDBRepository;
 import com.andr.mvvm.RetrofitRoom.Repository.FeedWebServiceRepository;*/
 
-import com.bufeotec.sipcsi.Feed.Models.ModelFeed;
-import com.bufeotec.sipcsi.Feed.Repository.FeedRoomDBRepository;
-import com.bufeotec.sipcsi.Feed.Repository.FeedWebServiceRepository;
+import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Models.ModelFeed;
+import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Repository.FeedRoomDBRepository;
+import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Repository.FeedWebServiceRepository;
 
 import java.util.List;
 

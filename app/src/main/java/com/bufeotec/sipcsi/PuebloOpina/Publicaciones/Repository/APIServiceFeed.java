@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.Feed.Repository;
+package com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Repository;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

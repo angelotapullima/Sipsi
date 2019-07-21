@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.Feed.Models;
+package com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.Feed.Repository;
+package com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 //import com.andr.mvvm.RetrofitRoom.Models.ModelFeed;
 
-import com.bufeotec.sipcsi.Feed.Models.ModelFeed;
+import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Models.ModelFeed;
 
 import java.util.List;
 
