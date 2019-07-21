@@ -124,7 +124,7 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
     ImageButton bt_photo;
     Preferences pref;
     boolean valorFoto;
-
+    ModelFeed modelFeed;
     String IdPueblo;
     View bottomEli;
     LinearLayout tap_de_accion,LayoutEliminar;
@@ -260,9 +260,23 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
     private void setAdapter(){
         adapter = new AdapterFeed(getActivity(), new AdapterFeed.OnItemClickListener() {
             @Override
-            public void onItemClick(ModelFeed modelFeed, int position) {
+            public void onItemClick(ModelFeed modelFeed1, int position) {
 
-                IdPueblo=modelFeed.getId();
+                modelFeed =  new ModelFeed();
+
+                modelFeed.setId_usuario(modelFeed1.getId_usuario());
+                modelFeed.setId(modelFeed1.getId());
+                modelFeed.setUsuario(modelFeed1.getUsuario());
+                modelFeed.setCant_likes(modelFeed1.getCant_likes());
+                modelFeed.setDestino(modelFeed1.getDestino());
+                modelFeed.setDio_like(modelFeed1.getDio_like());
+                modelFeed.setQueja(modelFeed1.getQueja());
+                modelFeed.setFoto(modelFeed1.getFoto());
+                modelFeed.setFecha(modelFeed1.getFecha());
+
+
+
+                IdPueblo=modelFeed1.getId();
                 if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
@@ -303,6 +317,7 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
         }
     }
 
+
     StringRequest stringRequest;
     private void EliminarPublicacionWeb(final String idpueblo) {
         String url ="https://"+IP+"/index.php?c=Pueblo&a=eliminar&key_mobile=123456asdfgh";
@@ -313,8 +328,8 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
 
                 if (response.toString().equals("1")){
                     Toast.makeText(context, "Publicacion eliminada", Toast.LENGTH_SHORT).show();
-                    retroViewModel.deleteAllFeed();
-                    onRefresh();
+                    retroViewModel.deleteOneFeed(idpueblo);
+                    //onRefresh();
                 }
                 }
 

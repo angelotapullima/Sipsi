@@ -2,6 +2,7 @@ package com.bufeotec.sipcsi.Feed.Repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -22,6 +23,9 @@ public interface FeedDao {
 
     @Query("DELETE FROM feed")
     void deleteAll();
+
+    @Query("DELETE FROM feed WHERE  id = :id")
+    void deleteOneFeed(String id);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

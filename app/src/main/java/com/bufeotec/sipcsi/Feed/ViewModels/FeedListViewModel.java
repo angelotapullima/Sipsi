@@ -20,6 +20,8 @@ public class FeedListViewModel extends AndroidViewModel {
     private LiveData<List<ModelFeed>> mAllPosts;
     FeedWebServiceRepository feedWebServiceRepository;
     private final LiveData<List<ModelFeed>> retroObservable;
+
+
     public FeedListViewModel(Application application){
         super(application);
         feedRoomDBRepository = new FeedRoomDBRepository(application);
@@ -37,6 +39,10 @@ public class FeedListViewModel extends AndroidViewModel {
 
     public void deleteAllFeed() {
         feedRoomDBRepository.deleteAllFeed();
+    }
+
+    public void deleteOneFeed(String id){
+        feedRoomDBRepository.deleteOneFeed(id);
     }
    /*public LiveData<List<ModelFeed>> getProjectRetroListObservable() {
         return retroObservable;

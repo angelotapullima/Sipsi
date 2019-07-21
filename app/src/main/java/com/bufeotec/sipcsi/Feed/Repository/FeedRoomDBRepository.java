@@ -20,12 +20,19 @@ public class FeedRoomDBRepository {
         mAllPosts = feedDao.getAllPosts();
      }
 
+
+
     public LiveData<List<ModelFeed>> getAllPosts() {
         return mAllPosts;
     }
 
     public void deleteAllFeed() {
         new DeleteAllFeedAsyncTask(feedDao).execute();
+    }
+
+
+    public void deleteOneFeed(String dato) {
+        new DeleteOneFeedAsyncTask(feedDao).execute(dato);
     }
 
     public void insertPosts (List<ModelFeed> modelFeed) {
@@ -57,6 +64,22 @@ public class FeedRoomDBRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             feedDao.deleteAll();
+            return null;
+        }
+    }
+
+
+    private static class DeleteOneFeedAsyncTask extends AsyncTask<String , Void, Void> {
+        private FeedDao feedDao;
+
+        private DeleteOneFeedAsyncTask(FeedDao feedDao) {
+            this.feedDao = feedDao;
+        }
+
+        @Override
+        protected Void doInBackground(String... modelFeeds) {
+            feedDao.deleteOneFeed(modelFeeds[0]);
+
             return null;
         }
     }
