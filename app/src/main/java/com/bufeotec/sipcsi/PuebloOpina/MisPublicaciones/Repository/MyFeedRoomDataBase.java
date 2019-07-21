@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.MiFeed.Repository;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -7,7 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.bufeotec.sipcsi.MiFeed.Models.ModelMyFeed;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models.ModelMyFeed;
 
 //import com.andr.mvvm.RetrofitRoom.Models.ModelFeed;
 

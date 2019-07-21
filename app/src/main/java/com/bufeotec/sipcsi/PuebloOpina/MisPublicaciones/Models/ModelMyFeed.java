@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.MiFeed.Models;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -150,112 +150,6 @@ public class ModelMyFeed
                 '}';
     }
 
-    /*@Override
-    public String toString()
-    {
-        return "ClassPojo [id = "+id+", body = "+body+", title = "+title+"]";
-    }*/
+
 }
 
-/*
-@Entity(tableName = "post_info")
-
-
-return "ClassPojo [id = "+id+", body = "+body+", title = "+title+"]";
-
- public class ModelFeed implements Parcelable{
-        @NonNull
-        @ColumnInfo(name = "userId")
-        @SerializedName("userId")
-        @Expose
-        private Integer userId;
-
-        @PrimaryKey
-        @NonNull
-        @ColumnInfo(name = "id")
-        @SerializedName("id")
-        @Expose
-        private Integer id;
-
-        @NonNull
-        @ColumnInfo(name = "title")
-        @SerializedName("title")
-        @Expose
-        private String title;
-
-        @NonNull
-        @ColumnInfo(name = "body")
-        @SerializedName("body")
-        @Expose
-        private String body;
-
-        public final Creator<ModelFeed> CREATOR = new Creator<ModelFeed>() {
-
-            @SuppressWarnings({
-                    "unchecked"
-            })
-            public ModelFeed createFromParcel(Parcel in) {
-                ModelFeed instance = new ModelFeed();
-
-                instance.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
-
-                instance.title = ((String) in.readValue((String.class.getClassLoader())));
-
-                instance.body = ((String) in.readValue((String.class.getClassLoader())));
-
-                return instance;
-            }
-
-            public ModelFeed[] newArray(int size) {
-                return (new ModelFeed[size]);
-            }
-
-        };
-
-
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-
-        public String getBody() {
-            return body;
-        }
-
-        public void setBody(String body) {
-            this.body = body;
-        }
-
-
-
-        public void writeToParcel(Parcel dest, int flags) {
-
-            dest.writeValue(id);
-
-            dest.writeValue(title);
-
-            dest.writeValue(body);
-
-        }
-
-        public int describeContents() {
-            return 0;
-        }
-    }
-
-*/

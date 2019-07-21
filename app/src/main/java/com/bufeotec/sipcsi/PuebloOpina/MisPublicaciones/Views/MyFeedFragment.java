@@ -1,87 +1,34 @@
-package com.bufeotec.sipcsi.MiFeed.Views;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Views;
 
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bufeotec.sipcsi.MiFeed.Models.ModelMyFeed;
-import com.bufeotec.sipcsi.MiFeed.Repository.MyFeedWebServiceRepository;
-import com.bufeotec.sipcsi.MiFeed.ViewModels.MyFeedListViewModel;
-import com.bufeotec.sipcsi.Models.Areas;
-import com.bufeotec.sipcsi.Principal.MainActivity;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models.ModelMyFeed;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository.MyFeedWebServiceRepository;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.ViewModels.MyFeedListViewModel;
 import com.bufeotec.sipcsi.R;
 import com.bufeotec.sipcsi.Util.Preferences;
-import com.bufeotec.sipcsi.WebServices.DataConnection;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.theartofdev.edmodo.cropper.CropImage;
 
-import net.gotev.uploadservice.MultipartUploadRequest;
-import net.gotev.uploadservice.UploadNotificationAction;
-import net.gotev.uploadservice.UploadNotificationConfig;
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import cz.msebera.android.httpclient.Header;
-
-import static android.app.Activity.RESULT_OK;
 import static com.bufeotec.sipcsi.WebServices.DataConnection.IP;
-import static net.gotev.uploadservice.Placeholders.ELAPSED_TIME;
-import static net.gotev.uploadservice.Placeholders.PROGRESS;
-import static net.gotev.uploadservice.Placeholders.TOTAL_FILES;
-import static net.gotev.uploadservice.Placeholders.UPLOADED_FILES;
-import static net.gotev.uploadservice.Placeholders.UPLOAD_RATE;
-
 
 
 public class MyFeedFragment extends Fragment  implements  SwipeRefreshLayout.OnRefreshListener{

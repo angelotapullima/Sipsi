@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.MiFeed.Views;
+package com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Views;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,17 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/*import com.andr.mvvm.R;
+import com.andr.mvvm.RetrofitRoom.Models.ModelFeed;
+import com.andr.mvvm.RetrofitRoom.UniversalImageLoader;*/
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bufeotec.sipcsi.MiFeed.Models.ModelMyFeed;
+import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Models.ModelFeed;
 import com.bufeotec.sipcsi.R;
 import com.bufeotec.sipcsi.Util.Preferences;
 import com.bufeotec.sipcsi.Util.UniversalImageLoader;
@@ -36,14 +39,11 @@ import java.util.Map;
 
 import static com.bufeotec.sipcsi.WebServices.DataConnection.IP;
 
-/*import com.andr.mvvm.R;
-import com.andr.mvvm.RetrofitRoom.Models.ModelFeed;
-import com.andr.mvvm.RetrofitRoom.UniversalImageLoader;*/
-
-public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHolder> {
+public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder> {
 
     UniversalImageLoader universalImageLoader;
     String foto ;
+    ModelFeed modelFeed;
     StringRequest stringRequest;
     ImageButton imgbt_like_g;
     TextView nlike_g;
@@ -51,40 +51,57 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
     JSONObject json_data;
     String resultado;
     int posicionlocalc;
-    ModelMyFeed current;
+    ModelFeed current;
     Context ctx;
+    private  OnItemClickListener listener;
     Preferences preferencesUser;
 
 
     class PostViewHolder extends RecyclerView.ViewHolder {
         private ImageView img_fotoQueja;
         ImageButton like;
+        LinearLayout layoutMas;
+        ImageView btnAccion;
         RelativeLayout relfoto;
-        private ProgressBar prog_fotoPublicacion;
         private TextView txt_nombreUsuario, txt_fechaQueja,  txt_descripcionQueja,txt_destinoQueja,nlike;
 
         private PostViewHolder(View itemView) {
             super(itemView);
             img_fotoQueja=  itemView.findViewById(R.id.img_fotoQuejaItem);
             relfoto=  itemView.findViewById(R.id.relfoto);
+            btnAccion=  itemView.findViewById(R.id.btnAccion);
+            layoutMas=  itemView.findViewById(R.id.layoutMas);
             txt_destinoQueja=  itemView.findViewById(R.id.txt_destinoQueja);
-            prog_fotoPublicacion = itemView.findViewById(R.id.prog_fotoPublicacion);
             like=  itemView.findViewById(R.id.like);
             nlike=  itemView.findViewById(R.id.nlike);
             txt_nombreUsuario=  itemView.findViewById(R.id.txt_nombreUsuario);
             txt_fechaQueja=  itemView.findViewById(R.id.txt_fechaQueja);
             txt_descripcionQueja=  itemView.findViewById(R.id.txt_descripcionQueja);
         }
+
+        public void bid(final ModelFeed modelFeed,final OnItemClickListener listener){
+            btnAccion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(modelFeed, getAdapterPosition());
+                }
+            });
+
+
+        }
     }
 
     private final LayoutInflater mInflater;
-    private List<ModelMyFeed> mUsers; // Cached copy of users
 
 
-    AdapterMyFeed(Context context) {
+    private List<ModelFeed> mUsers; // Cached copy of users
+
+
+    AdapterFeed(Context context ,OnItemClickListener listener) {
         mInflater = LayoutInflater.from(context);
         universalImageLoader = new UniversalImageLoader(context);
-        preferencesUser = new Preferences(context);}
+        preferencesUser = new Preferences(context);
+        this.listener = listener;}
 
     @NonNull
     @Override
@@ -102,6 +119,9 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
             holder.body.setText(current.getFoto());*/
 
 
+            if (!current.getId_usuario().equals(preferencesUser.getIdUsuarioPref())){
+                holder.layoutMas.setVisibility(View.GONE);
+            }
             holder.setIsRecyclable(false);
             holder.like.setId(position);
             foto = current.getFoto();
@@ -152,12 +172,14 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
                     }
                 }
             });
+
+            holder.bid(current,listener);
         } else {
             // Covers the case of data not being ready yet.
            // holder.userNameView.setText("No Word");
         }
     }
-    void setWords(List<ModelMyFeed> users){
+    void setWords(List<ModelFeed> users){
         mUsers = users;
         notifyDataSetChanged();
     }
@@ -291,4 +313,8 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
         VolleySingleton.getIntanciaVolley(ctx).addToRequestQueue(stringRequest);
     }
 
+
+    public interface  OnItemClickListener{
+        void onItemClick(ModelFeed modelFeed, int position);
+    }
 }

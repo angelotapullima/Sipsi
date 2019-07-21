@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.MiFeed.Repository;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository;
 
 import android.os.AsyncTask;
 

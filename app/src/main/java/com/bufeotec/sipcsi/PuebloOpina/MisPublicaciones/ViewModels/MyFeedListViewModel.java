@@ -1,13 +1,12 @@
-package com.bufeotec.sipcsi.MiFeed.ViewModels;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.ViewModels;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 
-import com.bufeotec.sipcsi.MiFeed.Models.ModelMyFeed;
-import com.bufeotec.sipcsi.MiFeed.Repository.MyFeedRoomDBRepository;
-import com.bufeotec.sipcsi.MiFeed.Repository.MyFeedWebServiceRepository;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models.ModelMyFeed;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository.MyFeedRoomDBRepository;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository.MyFeedWebServiceRepository;
 
 import java.util.List;
 

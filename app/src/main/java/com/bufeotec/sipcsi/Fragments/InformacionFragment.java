@@ -2,8 +2,6 @@ package com.bufeotec.sipcsi.Fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,19 +17,13 @@ import android.widget.TextView;
 
 import com.bufeotec.sipcsi.Activitys.EditarPerfil;
 import com.bufeotec.sipcsi.Activitys.Login;
-import com.bufeotec.sipcsi.Feed.Models.ModelFeed;
-import com.bufeotec.sipcsi.Feed.Repository.FeedDao;
-import com.bufeotec.sipcsi.MiFeed.Repository.MyFeedInfoDao;
-import com.bufeotec.sipcsi.MiFeed.Repository.MyFeedRoomDBRepository;
-import com.bufeotec.sipcsi.MiFeed.Repository.MyFeedRoomDataBase;
-import com.bufeotec.sipcsi.MiFeed.ViewModels.MyFeedListViewModel;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.ViewModels.MyFeedListViewModel;
 import com.bufeotec.sipcsi.Models.Usuario;
 import com.bufeotec.sipcsi.R;
 import com.bufeotec.sipcsi.Util.Preferences;
 import com.bufeotec.sipcsi.WebServices.DataConnection;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.bufeotec.sipcsi.Principal.MainActivity.removerLogin;
 

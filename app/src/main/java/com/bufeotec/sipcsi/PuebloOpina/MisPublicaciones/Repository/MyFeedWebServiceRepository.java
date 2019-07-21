@@ -1,14 +1,12 @@
-package com.bufeotec.sipcsi.MiFeed.Repository;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.bufeotec.sipcsi.MiFeed.Models.ModelMyFeed;
-import com.bufeotec.sipcsi.Util.Preferences;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models.ModelMyFeed;
 
 import org.json.JSONArray;
 import org.json.JSONException;

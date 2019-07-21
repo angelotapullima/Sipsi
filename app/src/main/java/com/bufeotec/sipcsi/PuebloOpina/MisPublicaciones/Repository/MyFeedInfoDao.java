@@ -1,4 +1,4 @@
-package com.bufeotec.sipcsi.MiFeed.Repository;
+package com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,7 +7,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.bufeotec.sipcsi.MiFeed.Models.ModelMyFeed;
+import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models.ModelMyFeed;
 
 import java.util.List;
 

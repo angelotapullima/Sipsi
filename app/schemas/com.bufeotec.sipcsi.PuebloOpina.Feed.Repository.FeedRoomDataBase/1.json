@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c6812e36e732ae730d0266423ac29623",
+    "entities": [
+      {
+        "tableName": "feed",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `usuario` TEXT, `id_usuario` TEXT, `destino` TEXT, `queja` TEXT, `foto` TEXT, `fecha` TEXT, `cant_likes` TEXT, `dio_like` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuario",
+            "columnName": "usuario",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_usuario",
+            "columnName": "id_usuario",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "destino",
+            "columnName": "destino",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "queja",
+            "columnName": "queja",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "foto",
+            "columnName": "foto",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cant_likes",
+            "columnName": "cant_likes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dio_like",
+            "columnName": "dio_like",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c6812e36e732ae730d0266423ac29623\")"
+    ]
+  }
+}
