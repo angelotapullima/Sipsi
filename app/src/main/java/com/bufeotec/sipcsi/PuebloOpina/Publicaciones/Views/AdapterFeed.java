@@ -43,7 +43,6 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
 
     UniversalImageLoader universalImageLoader;
     String foto ;
-    ModelFeed modelFeed;
     StringRequest stringRequest;
     ImageButton imgbt_like_g;
     TextView nlike_g;

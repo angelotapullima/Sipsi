@@ -95,16 +95,14 @@ import static net.gotev.uploadservice.Placeholders.TOTAL_FILES;
 import static net.gotev.uploadservice.Placeholders.UPLOADED_FILES;
 import static net.gotev.uploadservice.Placeholders.UPLOAD_RATE;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FeedFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
+
+
 public class FeedFragment extends Fragment implements View.OnClickListener,  SwipeRefreshLayout.OnRefreshListener{
 
 
 
-    DataConnection dc, dc2;
+    DataConnection  dc2;
     SwipeRefreshLayout swipeRefreshLayout;
     Context context;
     Activity activity;
@@ -120,7 +118,7 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
     ImageButton bt_photo;
     Preferences pref;
     boolean valorFoto;
-    ModelFeed modelFeed;
+
     String IdPueblo;
     View bottomEli;
     LinearLayout tap_de_accion,LayoutEliminar;
@@ -133,14 +131,8 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
 
     String url = "http://" + IP + "/index.php?c=Pueblo&a=guardar&key_mobile=123456asdfgh";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
     View view = null;
     FeedListViewModel retroViewModel;
     ProgressDialog progressDialog;
@@ -148,30 +140,13 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FeedFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FeedFragment newInstance(String param1, String param2) {
-        FeedFragment fragment = new FeedFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     //    progressDialog = new ProgressDialog(getActivity());
         retroViewModel = ViewModelProviders.of(getActivity()).get(FeedListViewModel.class);
@@ -253,28 +228,20 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
     }
 
     AdapterFeed adapter = null;
+
     private void setAdapter(){
         adapter = new AdapterFeed(getActivity(), new AdapterFeed.OnItemClickListener() {
             @Override
             public void onItemClick(ModelFeed modelFeed1, int position) {
 
-                modelFeed =  new ModelFeed();
-
-                modelFeed.setId_usuario(modelFeed1.getId_usuario());
-                modelFeed.setId(modelFeed1.getId());
-                modelFeed.setUsuario(modelFeed1.getUsuario());
-                modelFeed.setCant_likes(modelFeed1.getCant_likes());
-                modelFeed.setDestino(modelFeed1.getDestino());
-                modelFeed.setDio_like(modelFeed1.getDio_like());
-                modelFeed.setQueja(modelFeed1.getQueja());
-                modelFeed.setFoto(modelFeed1.getFoto());
-                modelFeed.setFecha(modelFeed1.getFecha());
 
 
 
                 IdPueblo=modelFeed1.getId();
                 if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }else{
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
             }
         });

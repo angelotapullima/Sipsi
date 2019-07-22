@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bufeotec.sipcsi.PuebloOpina.MisPublicaciones.Models.ModelMyFeed;
+import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Models.ModelFeed;
 import com.bufeotec.sipcsi.R;
 import com.bufeotec.sipcsi.Util.Preferences;
 import com.bufeotec.sipcsi.Util.UniversalImageLoader;
@@ -53,27 +55,44 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
     int posicionlocalc;
     ModelMyFeed current;
     Context ctx;
+    private  OnItemClickListener listener;
     Preferences preferencesUser;
 
 
     class PostViewHolder extends RecyclerView.ViewHolder {
+
+
         private ImageView img_fotoQueja;
         ImageButton like;
+        LinearLayout layoutMas;
+        ImageView btnAccion;
         RelativeLayout relfoto;
-        private ProgressBar prog_fotoPublicacion;
         private TextView txt_nombreUsuario, txt_fechaQueja,  txt_descripcionQueja,txt_destinoQueja,nlike;
+
 
         private PostViewHolder(View itemView) {
             super(itemView);
-            img_fotoQueja=  itemView.findViewById(R.id.img_fotoQuejaItem);
-            relfoto=  itemView.findViewById(R.id.relfoto);
-            txt_destinoQueja=  itemView.findViewById(R.id.txt_destinoQueja);
-            prog_fotoPublicacion = itemView.findViewById(R.id.prog_fotoPublicacion);
-            like=  itemView.findViewById(R.id.like);
-            nlike=  itemView.findViewById(R.id.nlike);
-            txt_nombreUsuario=  itemView.findViewById(R.id.txt_nombreUsuario);
-            txt_fechaQueja=  itemView.findViewById(R.id.txt_fechaQueja);
-            txt_descripcionQueja=  itemView.findViewById(R.id.txt_descripcionQueja);
+            img_fotoQueja = itemView.findViewById(R.id.img_fotoQuejaItem);
+            relfoto = itemView.findViewById(R.id.relfoto);
+            btnAccion = itemView.findViewById(R.id.btnAccion);
+            layoutMas = itemView.findViewById(R.id.layoutMas);
+            txt_destinoQueja = itemView.findViewById(R.id.txt_destinoQueja);
+            like = itemView.findViewById(R.id.like);
+            nlike = itemView.findViewById(R.id.nlike);
+            txt_nombreUsuario = itemView.findViewById(R.id.txt_nombreUsuario);
+            txt_fechaQueja = itemView.findViewById(R.id.txt_fechaQueja);
+            txt_descripcionQueja = itemView.findViewById(R.id.txt_descripcionQueja);
+
+        }
+        public void bid(final ModelMyFeed modelFeed, final OnItemClickListener listener){
+            btnAccion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(modelFeed, getAdapterPosition());
+                }
+            });
+
+
         }
     }
 
@@ -81,11 +100,11 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
     private List<ModelMyFeed> mUsers; // Cached copy of users
 
 
-    AdapterMyFeed(Context context) {
+    AdapterMyFeed(Context context,OnItemClickListener listener) {
         mInflater = LayoutInflater.from(context);
         universalImageLoader = new UniversalImageLoader(context);
-        preferencesUser = new Preferences(context);}
-
+        preferencesUser = new Preferences(context);
+        this.listener = listener;}
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -152,6 +171,8 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
                     }
                 }
             });
+
+            holder.bid(current,listener);
         } else {
             // Covers the case of data not being ready yet.
            // holder.userNameView.setText("No Word");
@@ -289,6 +310,11 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(ctx).addToRequestQueue(stringRequest);
+    }
+
+
+    public interface  OnItemClickListener{
+        void onItemClick(ModelMyFeed modelFeed, int position);
     }
 
 }

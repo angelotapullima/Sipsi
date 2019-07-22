@@ -28,6 +28,10 @@ public interface MyFeedInfoDao {
     @Delete
     void deleteMovie(ModelMyFeed modelMyFeed);
 
+
+    @Query("DELETE FROM myfeed_info WHERE  id = :id")
+    void deleteOneMYFeed(String id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPosts(List<ModelMyFeed> modelMyFeed);
 

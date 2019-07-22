@@ -33,6 +33,9 @@ public class MyFeedRoomDBRepository {
     }
 
 
+    public void deleteOneFeed(String dato) {
+        new DeleteOneMyFeedAsyncTask(myFeedInfoDao).execute(dato);
+    }
 
     public void deleteMovie(ModelMyFeed modelMyFeed) {
         new DeleteMovieAsyncTask(myFeedInfoDao).execute(modelMyFeed);
@@ -78,6 +81,21 @@ public class MyFeedRoomDBRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             myFeedInfoDao.deleteAll();
+            return null;
+        }
+    }
+
+    private static class DeleteOneMyFeedAsyncTask extends AsyncTask<String , Void, Void> {
+        private MyFeedInfoDao feedDao;
+
+        private DeleteOneMyFeedAsyncTask(MyFeedInfoDao feedDao) {
+            this.feedDao = feedDao;
+        }
+
+        @Override
+        protected Void doInBackground(String... modelFeeds) {
+            feedDao.deleteOneMYFeed(modelFeeds[0]);
+
             return null;
         }
     }

@@ -39,6 +39,10 @@ public class MyFeedListViewModel extends AndroidViewModel {
     public void deleteAllPost() {
         myFeedRoomDBRepository.deleteAllPost();
     }
+
+    public void deleteOneFeed(String id){
+        myFeedRoomDBRepository.deleteOneFeed(id);
+    }
 /*    public void insert(User user) {
         userRepository.insert(user);
     }*/
