@@ -56,6 +56,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.bufeotec.sipcsi.Activitys.DetalleAlarmas;
 import com.bufeotec.sipcsi.Activitys.GPSinactivo;
 import com.bufeotec.sipcsi.BuildConfig;
+import com.bufeotec.sipcsi.Fragments.ListaPuntosTuristicos;
+import com.bufeotec.sipcsi.Fragments.TurismoPrincipalFragment;
 import com.bufeotec.sipcsi.PuebloOpina.Publicaciones.Views.FeedFragment;
 import com.bufeotec.sipcsi.Fragments.AboutFragment;
 import com.bufeotec.sipcsi.Fragments.InformacionFragment;
@@ -106,12 +108,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         ListParteAccidenteFragment.OnFragmentInteractionListener,
         ListParteDelitoFragment.OnFragmentInteractionListener,
         ListParteApoyoFragment.OnFragmentInteractionListener,
-        PuntosTuristicosFragment.OnFragmentInteractionListener,
+        TurismoPrincipalFragment.OnFragmentInteractionListener,
         TrackingBasureroFragment.OnFragmentInteractionListener, View.OnClickListener,
         MyFeedFragment.OnFragmentInteractionListener,
         InformacionFragment.OnFragmentInteractionListener,
         AboutFragment.OnFragmentInteractionListener,
-        FeedFragment.OnFragmentInteractionListener {
+        FeedFragment.OnFragmentInteractionListener,
+        PuntosTuristicosFragment.OnFragmentInteractionListener,
+        ListaPuntosTuristicos.OnFragmentInteractionListener {
 
 
     public static final String ALARMA= "ALARMA";
@@ -519,7 +523,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragment = new PuntosTuristicosFragment();
+            fragment = new TurismoPrincipalFragment();
             fragmentTransaction.replace(R.id.contenedor, fragment).addToBackStack("frag").commit();
 
         }

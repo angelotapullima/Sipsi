@@ -24,6 +24,8 @@ import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.bufeotec.sipcsi.WebServices.DataConnection.IP;
+
 public class Registro extends AppCompatActivity implements View.OnClickListener {
 
     EditText act_nombreUsuario,act_emailUsuario,act_dniUsuario,act_UsuarioUsuario,act_apeUsuario;
@@ -121,7 +123,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
 
                     AsyncHttpClient client = new AsyncHttpClient();
-                    client.post("http://www.guabba.com/accidentestransito/index.php?c=Usuario&a=registrar_ws&key_mobile=123456asdfgh",
+                    client.post("http://"+IP+"/index.php?c=Usuario&a=registrar_ws&key_mobile=123456asdfgh",
                             params1, new AsyncHttpResponseHandler() {
                         String respuesta = null;
                         ProgressDialog loading;
@@ -152,7 +154,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
                                         Toast.makeText(context, "Guardado correctamente", Toast.LENGTH_SHORT).show();
                                         finish();
-                                        // FragmentEquiposHijo.ActualizarEquipo();
+
 
                                     } else {
                                         Toast.makeText(context, "Vuelva a intentarlo", Toast.LENGTH_SHORT).show();

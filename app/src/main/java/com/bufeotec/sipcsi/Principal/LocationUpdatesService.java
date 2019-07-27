@@ -342,7 +342,7 @@ public class LocationUpdatesService extends Service {
         String lon = String.valueOf(location.getLongitude());
         if(location!=null){
             sendInfo(lat,lon);
-            Toast.makeText(this, "location" + lat + " " + lon, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "location" + lat + " " + lon, Toast.LENGTH_SHORT).show();
         }
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);

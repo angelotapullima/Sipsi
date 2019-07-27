@@ -1,0 +1,79 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="10dp"
+        android:background="@drawable/verde"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_height="200dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/verde">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:id="@+id/nombre_pt"
+                android:layout_marginBottom="5dp"
+                android:textSize="18sp"
+                android:layout_marginStart="110dp"
+                android:text="ella no te ama "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:id="@+id/calle_pt"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="110dp"
+                android:text="ella no te ama "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:id="@+id/des_pt"
+                android:layout_marginStart="110dp"
+                android:text="ella no te ama "/>
+
+        </LinearLayout>
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:id="@+id/imagen_turismo"
+                android:src="@drawable/bufeo"
+                android:scaleType="centerCrop"
+                android:layout_height="200dp" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

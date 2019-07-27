@@ -35,10 +35,12 @@ import static com.bufeotec.sipcsi.WebServices.DataConnection.IP;
 public class CambiarContrasena extends AppCompatActivity {
 
 
+    //inicialiamos las variables para cada elemento de la vista
     EditText contraNueva,contraAntigua,contraNuevaRepetida;
-
     Button btnContra;
     String id ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +48,21 @@ public class CambiarContrasena extends AppCompatActivity {
 
 
 
+        //enlazamos las variables con los elementos de la vista
         contraNueva=findViewById(R.id.contraNueva);
         contraAntigua=findViewById(R.id.contraAntigua);
         contraNuevaRepetida=findViewById(R.id.contraNuevaRepetida);
         btnContra=findViewById(R.id.btnCambiarContra);
 
+        //enviamos titulo al toolbar y habilitamos la flecha
         showToolbar("Cambiar Contraseña",true);
+
+        //obtenemos el id de la pantalla "EditarPerfil"
         id=getIntent().getExtras().getString("id");
 
 
+
+        //al hacer click al boton validamos si coinciden las contraseñas y enviamos los datos al servidor
         btnContra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,12 +82,17 @@ public class CambiarContrasena extends AppCompatActivity {
     }
 
     StringRequest stringRequest;
+
+
+    //metodo para enviar datos de cambio de contraseña
     private void cambiar() {
         String url ="https://"+IP+"/index.php?c=Usuario&a=editar_contrasenha&key_mobile=123456asdfgh";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
+
+                //validacion de contraseña se acuerdo a la respuesta del servidor
 
                 Log.e("respuesta de contraseña", "onResponse: " + response.trim().toString() );
                 if(response.trim().equalsIgnoreCase("1")){
@@ -115,17 +128,14 @@ public class CambiarContrasena extends AppCompatActivity {
         } ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //String imagen=convertirImgString(bitmap);
 
 
-
-
-                Map<String,String> parametros=new HashMap<>();
+                Map<String,String> parametros=new HashMap<>();                              //creamos un hashmap con los parametros correspondientes
                 parametros.put("id_usuario",id);
                 parametros.put("contrasenha_nueva",contraNueva.getText().toString());
                 parametros.put("contrasenha_antigua",contraAntigua.getText().toString());
 
-                return parametros;
+                return parametros;                                                          //enviamos el hashmap
 
             }
         };
@@ -136,20 +146,23 @@ public class CambiarContrasena extends AppCompatActivity {
 
 
 
+    //mostrar el toolbar
     public void showToolbar(String tittle, boolean upButton){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);      //asociamos el toolbar con el archivo xml
+        toolbar.setTitleTextColor(Color.WHITE);                     //el titulo color blanco
+        toolbar.setSubtitleTextColor(Color.WHITE);                  //el subtitulo color blanco
+        setSupportActionBar(toolbar);                               //pasamos los parametros anteriores a la clase Actionbar que controla el toolbar
 
-        getSupportActionBar().setTitle(tittle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
-        //CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
+        getSupportActionBar().setTitle(tittle);                     //asiganmos el titulo que llega
+        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);  //y habilitamos la flacha hacia atras
 
     }
+
+
+    //comportamiento de la flecha atras
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        onBackPressed();                        //definimos que al dar click a la flecha, nos lleva a la pantalla anterior
         return false;
     }
 }

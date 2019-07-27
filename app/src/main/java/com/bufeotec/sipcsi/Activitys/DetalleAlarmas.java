@@ -95,7 +95,7 @@ import static net.gotev.uploadservice.Placeholders.UPLOAD_RATE;
 
 public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-    //Iniciamos las Variables
+    //Inicializamos las Variables
     EditText edt_des;
     Button btn_registro, btn_camara,btn_cancelar;
     Spinner tipo_delito;
@@ -138,9 +138,13 @@ public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallb
 
         //pedimos permisos para usar el la memoria interna y externa del teléfono
         checkpermisos();
+
+        //enviamos titulo al toolbar y habilitamos la flecha
         showToolbar("Detalle Alarmas" , true);
+
         context=this;
 
+        //enlazamos las variables con los elementos de la vista
         pref=new Preferences(getApplicationContext());
         edt_des = findViewById(R.id.edt_des);
         btn_registro = findViewById(R.id.btn_registrar);
@@ -165,6 +169,7 @@ public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallb
             lDelito.setVisibility(View.GONE);
         }
 
+        //enviamos el valor que llega para saber que tipo de delito es
         textValor.setText(valor);
 
         btn_camara.setOnClickListener(this);
@@ -186,21 +191,24 @@ public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallb
 
 
     }
+
+
+    //comportamiento de la flecha atras
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        onBackPressed();                        //definimos que al dar click a la flecha, nos lleva a la pantalla anterior
         return false;
     }
 
+    //mostrar el toolbar
     public void showToolbar(String tittle, boolean upButton){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);      //asociamos el toolbar con el archivo xml
+        toolbar.setTitleTextColor(Color.WHITE);                     //el titulo color blanco
+        toolbar.setSubtitleTextColor(Color.WHITE);                  //el subtitulo color blanco
+        setSupportActionBar(toolbar);                               //pasamos los parametros anteriores a la clase Actionbar que controla el toolbar
 
-        getSupportActionBar().setTitle(tittle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
-
+        getSupportActionBar().setTitle(tittle);                     //asiganmos el titulo que llega
+        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);  //y habilitamos la flacha hacia atras
 
     }
 
@@ -216,10 +224,14 @@ public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallb
                         != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
+        //habilitamos el boton para volver a nuestra posición
         mMap.setMyLocationEnabled(true);
         dragMapa();
     }
 
+
+    //manejo de los eventos click de cada componente de la vista
     @Override
     public void onClick(View v) {
         if (v.equals(btn_camara)) {

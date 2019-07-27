@@ -12,7 +12,7 @@ public class FeedDbAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(final Void... params) {
-        mDao.deleteAll(); //esto borra todo lo guardado
+        //mDao.deleteAll(); //esto borra todo lo guardado
        /* User user = new User("Chandra","SW");
         mDao.insert(user);
         user = new User("Mohan","student");

@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bufeotec.sipcsi">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />        <!--permiso para funcionar un servicio en segundo plano-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />      <!--permiso para obtener la ubicación-->
+    <uses-permission android:name="android.permission.INTERNET" />                  <!--permiso para navegar por internet-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    <!--permiso para escribir datos de la memoria del telefono-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />     <!--permiso para leer datos de la memoria del telefono-->
 
     <application
         android:name=".Util.Initializer"
@@ -16,7 +16,11 @@
         android:roundIcon="@drawable/posible"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true">                                        <!-- comando para obtener respuesta de servidor cifradas-->
+
+
+
+
         <activity android:name=".Activitys.PartePDF"></activity>
         <activity android:name=".Activitys.CambiarContrasena" />
         <activity android:name=".Activitys.EditarPerfil" />
