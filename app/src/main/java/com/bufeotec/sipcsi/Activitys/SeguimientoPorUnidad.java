@@ -1,5 +1,6 @@
 package com.bufeotec.sipcsi.Activitys;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
 import com.bufeotec.sipcsi.Models.Vehiculos;
@@ -33,11 +35,19 @@ public class SeguimientoPorUnidad extends AppCompatActivity implements OnMapRead
     static String tok;
     String placa;
     Double lat,lon;
-    static DataConnection dc;
-    static Context context;
+    DataConnection dc;
+    Context context;
     Vehiculos vehiculos;
-    public static ArrayList<Vehiculos> arrayUbicacion ;
+    public  ArrayList<Vehiculos> arrayUbicacion ;
     boolean run = false;
+    String TAG = "S. unidad";
+    Marker marcador_;
+    public  float v;
+    public  double  lng;
+    public LatLng startPosition;
+    public  LatLng endPosition;
+    public  boolean isFirstPosition = true;
+    public Double startLatitude ,startLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +83,8 @@ public class SeguimientoPorUnidad extends AppCompatActivity implements OnMapRead
 
         // Add a marker in Sydney and move the camera
         LatLng punto = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(punto).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(punto));
+        //mMap.addMarker(new MarkerOptions().position(punto).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(punto));
 
         vehiculos = new Vehiculos();
         vehiculos.setId_vehiculo(idvehiculo);
@@ -84,7 +94,7 @@ public class SeguimientoPorUnidad extends AppCompatActivity implements OnMapRead
         new SeguimientoPorUnidad.GetUbicacion().execute();
     }
 
-    public static  class GetUbicacion extends AsyncTask<Void, Void, Void> {
+    public  class GetUbicacion extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -107,9 +117,11 @@ public class SeguimientoPorUnidad extends AppCompatActivity implements OnMapRead
     }
 
 
-    public static void CargarPuntosAMapa() {
+    public  void CargarPuntosAMapa() {
 
-        mMap.clear();
+
+
+        /*mMap.clear();
 
         if (arrayUbicacion.size() > 0) {
 
@@ -143,7 +155,55 @@ public class SeguimientoPorUnidad extends AppCompatActivity implements OnMapRead
         } else {
             Toast.makeText(context, "Lo sentimos, no tenemos puntos en estos momentos", Toast.LENGTH_SHORT).show();
         }
-        //mMap.setOnMarkerClickListener(this);
+        //mMap.setOnMarkerClickListener(this);*/
+
+        //String TAG = "mare";
+        if (arrayUbicacion.size() > 0) {
+
+            startLatitude = Double.parseDouble(arrayUbicacion.get(0).getLatitud());
+            startLongitude = Double.parseDouble(arrayUbicacion.get(0).getLongitud());
+
+            Log.e(TAG, " algo para saber"+startLatitude + "--" + startLongitude);
+
+            if (isFirstPosition) {
+                startPosition = new LatLng(startLatitude, startLongitude);
+
+                marcador_ = mMap.addMarker(new MarkerOptions().position(startPosition).
+                        flat(true)
+                        .title(arrayUbicacion.get(0).getPlaca() + " " + arrayUbicacion.get(0).getFecha())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.car)));
+                marcador_.setAnchor(0.5f, 0.5f);
+
+                mMap.moveCamera(CameraUpdateFactory
+                        .newCameraPosition
+                                (new CameraPosition.Builder()
+                                        .target(startPosition)
+                                        .zoom(17)
+                                        .build()));
+
+                isFirstPosition = false;
+
+            } else {
+                endPosition = new LatLng(startLatitude, startLongitude);
+
+                Log.e(TAG, startPosition.latitude + "--" + endPosition.latitude + "--Check --" + startPosition.longitude + "--" + endPosition.longitude);
+
+                if ((startPosition.latitude != endPosition.latitude) || (startPosition.longitude != endPosition.longitude)) {
+
+                    Log.e(TAG, "distinta posición");
+                    startBikeAnimation(startPosition, endPosition);
+
+                } else {
+
+                    //startBikeAnimation(startPosition, endPosition);
+                    Log.e(TAG, "misma posición");
+                }
+            }
+        }else{
+            Log.e(TAG, " no llega nada del servidor" );
+        }
+
+
     }
 
     private static  void VolverPosicion(LatLng miLatLng) {
@@ -161,6 +221,59 @@ public class SeguimientoPorUnidad extends AppCompatActivity implements OnMapRead
 
     }
 
+
+    private void startBikeAnimation(final LatLng start, final LatLng end) {
+
+        Log.e(TAG, "startBikeAnimation called...");
+
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
+        valueAnimator.setDuration(3000);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+
+                Log.e(TAG, "Car Animation Started...");
+                v = valueAnimator.getAnimatedFraction();
+                lng = v * end.longitude + (1 - v)
+                        * start.longitude;
+                lat = v * end.latitude + (1 - v)
+                        * start.latitude;
+
+                LatLng newPos = new LatLng(lat, lng);
+                marcador_.setPosition(newPos);
+                marcador_.setAnchor(0.5f, 0.5f);
+                marcador_.setRotation(getBearing(start, end));
+
+                // todo : Shihab > i can delay here
+                /*mMap.moveCamera(CameraUpdateFactory
+                        .newCameraPosition
+                                (new CameraPosition.Builder()
+                                        .target(newPos)
+                                        .zoom(15.5f)
+                                        .build()));*/
+
+                startPosition = marcador_.getPosition();
+
+            }
+
+        });
+        valueAnimator.start();
+    }
+    public static float getBearing(LatLng begin, LatLng end) {
+        double lat = Math.abs(begin.latitude - end.latitude);
+        double lng = Math.abs(begin.longitude - end.longitude);
+
+        if (begin.latitude < end.latitude && begin.longitude < end.longitude)
+            return (float) (Math.toDegrees(Math.atan(lng / lat)));
+        else if (begin.latitude >= end.latitude && begin.longitude < end.longitude)
+            return (float) ((90 - Math.toDegrees(Math.atan(lng / lat))) + 90);
+        else if (begin.latitude >= end.latitude && begin.longitude >= end.longitude)
+            return (float) (Math.toDegrees(Math.atan(lng / lat)) + 180);
+        else if (begin.latitude < end.latitude && begin.longitude >= end.longitude)
+            return (float) ((90 - Math.toDegrees(Math.atan(lng / lat))) + 270);
+        return -1;
+    }
 
     private   void ejecutarCadaTiempo(){
         final Handler handler= new Handler();

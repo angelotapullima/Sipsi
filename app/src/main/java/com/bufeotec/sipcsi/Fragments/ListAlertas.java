@@ -73,7 +73,7 @@ public class ListAlertas extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_alertas, container, false);
         activity = getActivity();
         context = getContext();
-        getActivity().setTitle("Lista De ListAlertas");
+        getActivity().setTitle("Lista De Alertas");
         pref= new Preferences(context);
 
         progressBar = view.findViewById(R.id.progressbar);

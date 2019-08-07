@@ -209,8 +209,10 @@ public class ListParteAccidenteFragment extends Fragment implements View.OnClick
 
 
                 Intent i = new Intent(context, PartePDF.class);
+                i.putExtra("id",alertas.getId());
+                i.putExtra("asunto",alertas.getAsunto());
                 startActivity(i);
-                String estado = "alertas";
+                //String estado = "alertas";
 
 
             }
