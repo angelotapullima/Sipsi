@@ -182,7 +182,7 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(TAG, "Service started");
+        //Log.i(TAG, "Service started");
         boolean startedFromNotification = intent.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION,
                 false);
 
@@ -206,7 +206,7 @@ public class LocationUpdatesService extends Service {
         // Called when a client (MainActivity in case of this sample) comes to the foreground
         // and binds with this service. The service should cease to be a foreground service
         // when that happens.
-        Log.i(TAG, "in onBind()");
+       // Log.i(TAG, "in onBind()");
         stopForeground(true);
         mChangingConfiguration = false;
         return mBinder;
@@ -217,7 +217,7 @@ public class LocationUpdatesService extends Service {
         // Called when a client (MainActivity in case of this sample) returns to the foreground
         // and binds once again with this service. The service should cease to be a foreground
         // service when that happens.
-        Log.i(TAG, "in onRebind()");
+        //Log.i(TAG, "in onRebind()");
         stopForeground(true);
         mChangingConfiguration = false;
         super.onRebind(intent);
@@ -225,13 +225,13 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.i(TAG, "Last client unbound from service");
+        //Log.i(TAG, "Last client unbound from service");
 
         // Called when the last client (MainActivity in case of this sample) unbinds from this
         // service. If this method is called due to a configuration change in MainActivity, we
         // do nothing. Otherwise, we make this service a foreground service.
         if (!mChangingConfiguration && Utils.requestingLocationUpdates(this)) {
-            Log.i(TAG, "Starting foreground service");
+            //Log.i(TAG, "Starting foreground service");
 
             startForeground(NOTIFICATION_ID, getNotification());
         }
@@ -248,7 +248,7 @@ public class LocationUpdatesService extends Service {
      * @link SecurityException}.
      */
     public void requestLocationUpdates() {
-        Log.i(TAG, "Requesting location updates");
+        //Log.i(TAG, "Requesting location updates");
         Utils.setRequestingLocationUpdates(this, true);
         startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
         try {
@@ -256,7 +256,7 @@ public class LocationUpdatesService extends Service {
                     mLocationCallback, Looper.myLooper());
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, false);
-            Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
+            //Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
         }
     }
 
@@ -265,14 +265,14 @@ public class LocationUpdatesService extends Service {
      * @link SecurityException}.
      */
     public void removeLocationUpdates() {
-        Log.i(TAG, "Removing location updates");
+        //Log.i(TAG, "Removing location updates");
         try {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
             Utils.setRequestingLocationUpdates(this, false);
             stopSelf();
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, true);
-            Log.e(TAG, "Lost location permission. Could not remove updates. " + unlikely);
+            //Log.e(TAG, "Lost location permission. Could not remove updates. " + unlikely);
         }
     }
 
@@ -334,7 +334,7 @@ public class LocationUpdatesService extends Service {
     }
 
     private void onNewLocation(Location location) {
-        Log.i(TAG, "New location: " + location);
+        //Log.i(TAG, "New location: " + location);
 
         mLocation = location;
 
@@ -407,7 +407,7 @@ public class LocationUpdatesService extends Service {
 
                 } else {
                     //Toast.makeText(ChoferDatosDeCarrera.this,"No se ha registrado ",Toast.LENGTH_SHORT).show();
-                    Log.d("LServices: 11 ",""+response);
+                    //Log.d("LServices: 11 ",""+response);
                 }
             }
 
@@ -415,7 +415,7 @@ public class LocationUpdatesService extends Service {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //Toast.makeText(context,"error ",Toast.LENGTH_SHORT).show();
-                Log.i("RESPUESTA: ",""+error.toString());
+                //Log.i("RESPUESTA: ",""+error.toString());
 
             }
         })  {

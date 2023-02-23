@@ -423,7 +423,7 @@ public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallb
 
                 AsyncHttpClient client = new AsyncHttpClient();
                 final String finalTipoNotificacion = tipoNotificacion;
-                client.post("http://"+IP+"/index.php?c=Alerta&a=guardar&key_mobile=123456asdfgh", params1, new AsyncHttpResponseHandler() {
+                client.post("https://"+IP+"/index.php?c=Alerta&a=guardar&key_mobile=123456asdfgh", params1, new AsyncHttpResponseHandler() {
 
                     ProgressDialog loading;
 
@@ -705,7 +705,6 @@ public class DetalleAlarmas extends AppCompatActivity implements OnMapReadyCallb
 
     private void enviarAlertas(final String tipoN , final String direcN) {
         String url ="https://"+IP+"/index.php?c=Alerta&a=notificar_alerta&key_mobile=123456asdfgh";
-        //String url ="http://www.guabba.com/accidentestransito/app/controllers/prueba.php";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

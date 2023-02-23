@@ -70,7 +70,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     Activity activity;
     Context context;
     GoogleMap mMap;
-    String dirImagen ="http://www.guabba.com/accidentestransito/media/loader.gif";
+    String dirImagen ="https://bufeotec.com/transito/media/loader.gif";
     Double lts, los;
     Marker marcador_;
     Puntos obj;

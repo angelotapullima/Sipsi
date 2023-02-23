@@ -363,7 +363,7 @@ public class MapaAlertas extends AppCompatActivity implements OnMapReadyCallback
                     if (fotex){
 
                     }else{
-                        String urlImagen = "https://www.guabba.com/accidentestransito/"+listavehiculosalertas.get(0).getFoto();
+                        String urlImagen = "https://bufeotec.com/transito/"+listavehiculosalertas.get(0).getFoto();
                         Log.e("imagen", "CargarPuntosAMapa: " + urlImagen );
                         UniversalImageLoader.setImage(urlImagen,fotoAlerta,null);
                         fotex= true;

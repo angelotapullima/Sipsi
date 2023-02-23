@@ -303,9 +303,8 @@ public class PuntosTuristicosFragment extends Fragment implements OnMapReadyCall
             Tnombre.setText(puntos.getNombre());
             Tdescripcion.setText(puntos.getDescripcion());
             Tdireccion.setText(puntos.getDireccion());
-            //UniversalImageLoader.setImage("http://"+IP+"/"+ puntos.getImagen(),Timagen,null);
             Glide.with(context)
-                  .load("http://"+IP+"/"+ puntos.getImagen())//Config.URL_IMAGES_PUBLIC + url__img+".jpg")
+                  .load("https://"+IP+"/"+ puntos.getImagen())//Config.URL_IMAGES_PUBLIC + url__img+".jpg")
                     //.crossFade()
                     //.centerCrop()
                     //.placeholder(R.drawable.placeholder)

@@ -71,14 +71,14 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
     Marker marcador_;
     boolean valor = false;
     public ArrayList<Vehiculos> listaBasureros;
-    public  ArrayList<Puntos> listPoints;
+    public ArrayList<Puntos> listPoints;
     Preferences pref;
-    public  float v;
-    public  double lat, lng;
+    public float v;
+    public double lat, lng;
     public LatLng startPosition;
-    public  LatLng endPosition;
-    public  boolean isFirstPosition = true;
-    public Double startLatitude ,startLongitude;
+    public LatLng endPosition;
+    public boolean isFirstPosition = true;
+    public Double startLatitude, startLongitude;
     static ArrayList<LatLng> points = null;
 
     // TODO: Rename and change types of parameters
@@ -101,40 +101,37 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SupportMapFragment mapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.map_tracking_basura);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_tracking_basura);
         mapFragment.getMapAsync(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tracking_basurero, container, false);
-        activity=getActivity();
-        context=getContext();
+        activity = getActivity();
+        context = getContext();
         pref = new Preferences(context);
         activity.setTitle("Monitoreo Basurero");
-        empezar_ruta=view.findViewById(R.id.empezar_ruta);
+        empezar_ruta = view.findViewById(R.id.empezar_ruta);
         empezar_ruta.setOnClickListener(this);
-        return  view;
+        return view;
     }
 
 
-
-    DataConnection dc,dc2;
+    DataConnection dc, dc2;
 
     @Override
     public void onClick(View v) {
 
-        if (v.equals(empezar_ruta)){
+        if (v.equals(empezar_ruta)) {
 
             notificacionInicioDeRuta(pref.getVehiculoPref());
-            if (empezar_ruta.getText().toString().equals("Terminar Ruta")){
+            if (empezar_ruta.getText().toString().equals("Terminar Ruta")) {
                 empezar_ruta.setBackgroundColor(Color.BLUE);
                 empezar_ruta.setTextColor(Color.WHITE);
                 empezar_ruta.setText("Empezar Ruta");
-            }else{
+            } else {
                 empezar_ruta.setBackgroundColor(Color.RED);
                 empezar_ruta.setTextColor(Color.WHITE);
                 empezar_ruta.setText("Terminar Ruta");
@@ -145,16 +142,17 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
 
 
     StringRequest stringRequest;
+
     private void notificacionInicioDeRuta(final String vehiculoID) {
-        String url ="https://"+IP+"/index.php?c=Vehiculo&a=notificar_inicio_basurero&key_mobile=123456asdfgh";
+        String url = "https://" + IP + "/index.php?c=Vehiculo&a=notificar_inicio_basurero&key_mobile=123456asdfgh";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(response.trim().equalsIgnoreCase("1")){
+                if (response.trim().equalsIgnoreCase("1")) {
 
                 } else {
                     //Toast.makeText(context,"la fruta ",Toast.LENGTH_SHORT).show();
-                    Log.e("noti_inicio_ruta:",""+response);
+                    Log.e("noti_inicio_ruta:", "" + response);
                 }
 
 
@@ -164,24 +162,23 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
             @Override
             public void onErrorResponse(VolleyError error) {
                 //Toast.makeText(context,"error ",Toast.LENGTH_SHORT).show();
-                Log.i("RESPUESTA: ",""+error.toString());
+                Log.i("RESPUESTA: ", "" + error.toString());
 
             }
-        })  {
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //String imagen=convertirImgString(bitmap);
 
 
-                Map<String,String> parametros=new HashMap<>();
-                parametros.put("id_vehiculo",vehiculoID);
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("id_vehiculo", vehiculoID);
 
                 return parametros;
 
             }
         };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(context).addToRequestQueue(stringRequest);
     }
 
@@ -197,20 +194,17 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
         mMap = googleMap;
 
 
-        vehiculos= new Vehiculos();
+        vehiculos = new Vehiculos();
         vehiculos.setId_vehiculo(pref.getVehiculoPref());
         vehiculos.setTok(pref.getNombrePref());
 
-        dc2 = new DataConnection(getActivity(), "listarRutasBasureros",pref.getVehiculoPref(), false);
+        dc2 = new DataConnection(getActivity(), "listarRutasBasureros", pref.getVehiculoPref(), false);
         new TrackingBasureroFragment.GetPoints().execute();
 
         dc = new DataConnection(getActivity(), "ubicacionVehiculo", vehiculos, false);
         new TrackingBasureroFragment.GetBasureros().execute();
 
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
 
 
@@ -218,7 +212,7 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
         mMap.setMyLocationEnabled(true);
     }
 
-    public  class GetBasureros extends AsyncTask<Void, Void, Void> {
+    public class GetBasureros extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -237,6 +231,7 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
             CargarPuntosAMapa();
         }
     }
+
     public void CargarPointsAMapa() {
 
 
@@ -274,10 +269,8 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
 
                 Log.e(TAG, "Car Animation Started...");
                 v = valueAnimator.getAnimatedFraction();
-                lng = v * end.longitude + (1 - v)
-                        * start.longitude;
-                lat = v * end.latitude + (1 - v)
-                        * start.latitude;
+                lng = v * end.longitude + (1 - v) * start.longitude;
+                lat = v * end.latitude + (1 - v) * start.latitude;
 
                 LatLng newPos = new LatLng(lat, lng);
                 marcador_.setPosition(newPos);
@@ -307,31 +300,31 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
     }
 
 
-    public  void CargarPuntosAMapa() {
+    public void CargarPuntosAMapa() {
 
         String TAG = "mare";
         if (listaBasureros.size() > 0) {
+            String valorLat = "0";
+            if(!listaBasureros.get(0).getLatitud().equals("null") ){
+                valorLat = listaBasureros.get(0).getLatitud();
+            }
 
-            startLatitude = Double.parseDouble(listaBasureros.get(0).getLatitud());
-            startLongitude = Double.parseDouble(listaBasureros.get(0).getLongitud());
+            String valorLon = "0";
+            if(!listaBasureros.get(0).getLatitud().equals("null") ){
+                valorLon = listaBasureros.get(0).getLongitud();
+            }
+            startLatitude = Double.parseDouble(valorLat);
+            startLongitude = Double.parseDouble(valorLon);
 
-            Log.e(TAG, " algo para saber"+startLatitude + "--" + startLongitude);
+            Log.e(TAG, " algo para saber" + startLatitude + "--" + startLongitude);
 
             if (isFirstPosition) {
                 startPosition = new LatLng(startLatitude, startLongitude);
 
-                marcador_ = mMap.addMarker(new MarkerOptions().position(startPosition).
-                        flat(true)
-                        .title(listaBasureros.get(0).getPlaca() + " " + listaBasureros.get(0).getFecha())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.car)));
+                marcador_ = mMap.addMarker(new MarkerOptions().position(startPosition).flat(true).title(listaBasureros.get(0).getPlaca() + " " + listaBasureros.get(0).getFecha()).icon(BitmapDescriptorFactory.fromResource(R.drawable.car)));
                 marcador_.setAnchor(0.5f, 0.5f);
 
-                mMap.moveCamera(CameraUpdateFactory
-                        .newCameraPosition
-                                (new CameraPosition.Builder()
-                                        .target(startPosition)
-                                        .zoom(17)
-                                        .build()));
+                mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().target(startPosition).zoom(17).build()));
 
                 isFirstPosition = false;
 
@@ -351,14 +344,14 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
                     Log.e(TAG, "misma posición");
                 }
             }
-        }else{
-            Log.e(TAG, " no sirves para nada mrd" );
+        } else {
+            Log.e(TAG, " no sirves para nada mrd");
         }
 
 
-
     }
-    public  class GetPoints extends AsyncTask<Void, Void, Void> {
+
+    public class GetPoints extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -394,11 +387,10 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
     }
 
 
-    private  void VolverPosicion(LatLng miLatLng) {
+    private void VolverPosicion(LatLng miLatLng) {
 
         //     mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        CameraPosition camPos = new CameraPosition.Builder()
-                .target(miLatLng)   //Centramos el mapa en Madrid
+        CameraPosition camPos = new CameraPosition.Builder().target(miLatLng)   //Centramos el mapa en Madrid
                 .zoom(16)         //Establecemos el zoom en 16
                 .bearing(45)      //Establecemos la orientación con el noreste arriba
                 .tilt(70)         //Bajamos el punto de vista de la cámara 70 grados
@@ -407,14 +399,12 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
         CameraUpdate miUbicacion = CameraUpdateFactory.newCameraPosition(camPos);
         mMap.animateCamera(miUbicacion);
         marcador_.showInfoWindow();
-        valor=true;
+        valor = true;
     }
 
 
-
-
-    private void ejecutarCadaTiempo(){
-        final Handler handler= new Handler();
+    private void ejecutarCadaTiempo() {
+        final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -423,18 +413,18 @@ public class TrackingBasureroFragment extends Fragment implements OnMapReadyCall
                     dc = new DataConnection(this, "ubicacionVehiculo", pref.getVehiculoPref(), false);
                     new TrackingBasureroFragment.GetBasureros().execute();
 
-                }else{
+                } else {
                     handler.removeCallbacks(this);
                 }
                 //CargarPuntosAMapa();//llamamos nuestro metodo
-                handler.postDelayed(this,10000);//se ejecutara cada 10 segundos
+                handler.postDelayed(this, 10000);//se ejecutara cada 10 segundos
             }
-        },5000);//empezara a ejecutarse después de 5 milisegundos
+        }, 5000);//empezara a ejecutarse después de 5 milisegundos
     }
 
     @Override
     public void onStop() {
-        run=true;
+        run = true;
         super.onStop();
     }
 }

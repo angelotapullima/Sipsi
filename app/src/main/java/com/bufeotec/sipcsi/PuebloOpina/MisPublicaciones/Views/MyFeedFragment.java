@@ -62,7 +62,7 @@ public class MyFeedFragment extends Fragment  implements  SwipeRefreshLayout.OnR
     String IdPueblo;
     View bottomEli;
 
-    String url = "http://" + IP + "/index.php?c=Pueblo&a=guardar&key_mobile=123456asdfgh";
+    String url = "https://" + IP + "/index.php?c=Pueblo&a=guardar&key_mobile=123456asdfgh";
 
 
     View view = null;

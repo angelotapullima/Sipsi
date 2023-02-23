@@ -129,7 +129,7 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
     public Uri output, resultUriRecortada;
     String userChoosenTask;
 
-    String url = "http://" + IP + "/index.php?c=Pueblo&a=guardar&key_mobile=123456asdfgh";
+    String url = "https://" + IP + "/index.php?c=Pueblo&a=guardar&key_mobile=123456asdfgh";
 
 
 
@@ -554,22 +554,24 @@ public class FeedFragment extends Fragment implements View.OnClickListener,  Swi
 
                     try {
                         respuesta = new String(responseBody, "UTF-8");
+
+                        if (respuesta.equals("1")) {
+                            // FragmentEquiposHijo.ActualizarEquipo();
+                            //mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            //onRefresh();
+                            Toast.makeText(context, "Guardado correctamente", Toast.LENGTH_SHORT).show();
+                            //adaptadorListadoQuejas.notifyDataSetChanged();
+
+
+
+                        } else {
+                            Toast.makeText(context, "Vuelva a intentarlo", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
 
-                    if (respuesta.equals("1")) {
-                        // FragmentEquiposHijo.ActualizarEquipo();
-                        //mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                        //onRefresh();
-                        Toast.makeText(context, "Guardado correctamente", Toast.LENGTH_SHORT).show();
-                        //adaptadorListadoQuejas.notifyDataSetChanged();
 
-
-
-                    } else {
-                        Toast.makeText(context, "Vuelva a intentarlo", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
 

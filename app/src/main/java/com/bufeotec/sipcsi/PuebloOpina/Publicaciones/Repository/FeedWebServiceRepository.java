@@ -119,8 +119,8 @@ public class FeedWebServiceRepository {
                 feed.setQueja(jsonNode.getString("queja"));
                 feed.setFoto(jsonNode.getString("foto"));
                 feed.setFecha(jsonNode.getString("fecha"));
-                feed.setCant_likes(jsonNode.getString("cant_likes"));
-                feed.setDio_like(jsonNode.getString("dio_like"));
+                /*feed.setCant_likes(jsonNode.getString("cant_likes"));
+                feed.setDio_like(jsonNode.getString("dio_like"));*/
 
                 apiResults.add(feed);
             }

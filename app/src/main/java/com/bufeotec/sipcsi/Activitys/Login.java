@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
     FrameLayout frameGif;
     ImageView gif;
     AutoCompleteTextView act_usuario;
-    String dirImagen ="http://www.guabba.com/accidentestransito/media/loader.gif";
+    String dirImagen ="https://bufeotec.com/transito/media/loader.gif";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

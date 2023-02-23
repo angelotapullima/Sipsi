@@ -75,7 +75,7 @@ public class DataConnection extends AppCompatActivity {
 
     Accidentes accidentes;
     JSONObject json_data;
-    public static  final String IP= "www.guabba.com/accidentestransito";
+    public static  final String IP= "bufeotec.com/transito";
 
     public DataConnection(){
 

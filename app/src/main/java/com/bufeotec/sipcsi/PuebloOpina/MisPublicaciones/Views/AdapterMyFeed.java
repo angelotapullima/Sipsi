@@ -132,13 +132,12 @@ public class AdapterMyFeed extends RecyclerView.Adapter<AdapterMyFeed.PostViewHo
             holder.nlike.setText(current.getCant_likes());
             holder.txt_descripcionQueja.setText(current.getQueja());
 
-            //UniversalImageLoader.setImage("http://"+IP+"/"+obj.getQueja_foto(),holder.img_fotoQueja,holder.prog_fotoPublicacion);
             if (foto.equals("0")){
                 holder.img_fotoQueja.setVisibility(View.GONE);
                 holder.relfoto.setVisibility(View.GONE);
             }else{
 
-                UniversalImageLoader.setImage("http://www.guabba.com/accidentestransito/"+current.getFoto(),holder.img_fotoQueja,null);
+                UniversalImageLoader.setImage("https://bufeotec.com/transito/"+current.getFoto(),holder.img_fotoQueja,null);
             }
 
 

@@ -123,7 +123,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
 
                     AsyncHttpClient client = new AsyncHttpClient();
-                    client.post("http://"+IP+"/index.php?c=Usuario&a=registrar_ws&key_mobile=123456asdfgh",
+                    client.post("https://"+IP+"/index.php?c=Usuario&a=registrar_ws&key_mobile=123456asdfgh",
                             params1, new AsyncHttpResponseHandler() {
                         String respuesta = null;
                         ProgressDialog loading;

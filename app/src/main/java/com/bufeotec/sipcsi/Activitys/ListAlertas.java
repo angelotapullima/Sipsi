@@ -142,7 +142,6 @@ public class ListAlertas extends AppCompatActivity {
     private void atenderAlerta() {
         //ProgressDialog loading = ProgressDialog.show(context, "Sipsi", "Por favor espere...", false, false);
         String url ="https://"+IP+"/index.php?c=Alerta&a=atender_alerta&key_mobile=123456asdfgh";
-        //String url ="https://www.guabba.com/motokapp/ubicacion.php";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

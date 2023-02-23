@@ -50,7 +50,7 @@ public class PartePDF extends AppCompatActivity {
             }
         });
         // Cargamos la web
-        browser.loadUrl("http://"+IP+"/index.php?c=Accidente&a=PDF&id="+id+"&key_mobile=123456asdfgh");
+        browser.loadUrl("https://"+IP+"/index.php?c=Accidente&a=PDF&id="+id+"&key_mobile=123456asdfgh");
 
         browser.setWebViewClient(new WebViewClient(){
             @Override

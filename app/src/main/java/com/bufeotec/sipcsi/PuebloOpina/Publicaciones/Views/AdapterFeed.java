@@ -132,17 +132,17 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
             holder.nlike.setText(current.getCant_likes());
             holder.txt_descripcionQueja.setText(current.getQueja());
 
-            //UniversalImageLoader.setImage("http://"+IP+"/"+obj.getQueja_foto(),holder.img_fotoQueja,holder.prog_fotoPublicacion);
             if (foto.equals("0")){
                 holder.img_fotoQueja.setVisibility(View.GONE);
                 holder.relfoto.setVisibility(View.GONE);
             }else{
 
-                UniversalImageLoader.setImage("http://www.guabba.com/accidentestransito/"+current.getFoto(),holder.img_fotoQueja,null);
+                UniversalImageLoader.setImage("https://bufeotec.com/transito/"+current.getFoto(),holder.img_fotoQueja,null);
             }
 
+            holder.like.setBackgroundResource(R.drawable.brazo_white);
 
-            if (current.getDio_like().equals("0")){
+            /*if (current.getDio_like().equals("0")){
                 holder.like.setBackgroundResource(R.drawable.brazo_white);
 
             }else{
@@ -150,7 +150,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
                 holder.like.setBackgroundResource(R.drawable.brazo);
                 //estado = false;
 
-            }
+            }*/
 
 
             holder.like.setOnClickListener(new View.OnClickListener() {
@@ -212,21 +212,10 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.PostViewHolder
                         mUsers.get(posicionlocalc).setDio_like("1");
                     }
 
-
-
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
-
-
                 //Toast.makeText(ChoferDatosDeCarrera.this,"No se ha registrado ",Toast.LENGTH_SHORT).show();
-
 
             }
 
